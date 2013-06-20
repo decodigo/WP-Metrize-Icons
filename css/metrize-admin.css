@@ -1,0 +1,22 @@
+.metrize-icons-container{
+	text-align: center;
+	}
+.metrize-icons-container a{
+	font-size: 3em;
+	color: #999;
+	cursor: pointer;
+	display: -moz-inline-stack;
+	display: inline-block;
+	vertical-align: top;
+	zoom: 1;
+	*display: inline;
+	margin: 0  0.3em 0.5em  0;
+	}
+
+#TB_window .metrize-icons-container a:hover{
+	color: #666;
+	}
+#TB_window #TB_ajaxContent{
+	width: auto !important;
+	height: 90%!important;
+}

@@ -2,13 +2,14 @@
 /*
 Plugin Name: WP Metrize Icons
 Plugin URI: http://www.decodigothemes.com
-Description: Use the Metrize icon set in Wordpress.
+Description: Use the Metrize Icon @font-face icon set in Wordpress for retina ready icons.
 Version: 1.0
 Author: DeCodigo
 Author URI: http://www.decodigothemes.com
 Author Email: nelson@decodigothemes.com
 Credits:
     Metrize Icons
+    by Alessio Atzeni
     http://www.alessioatzeni.com/metrize-icons/
 
 License:
@@ -23,40 +24,114 @@ License:
     GNU General Public License for more details.
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    THIS SOFTWARE IS LICENSED ARE PROVIDED "AS IS" WITHOUT WARRANTY OF
+    ANY KIND, EITHER EXPRESSED OR IMPLIED. THE AUTHOR IS NOT LIABLE
+    FOR ANY DAMAGES ARISING OUT OF ANY DEFECTS IN THIS MATERIAL. YOU
+    AGREE TO HOLD THE AUTHOR HARMLESS FOR ANY RESULT THAT MAY OCCUR
+    DURING THE COURSE OF USING, OR INABILITY TO USE THESE LICENSED
+    SOFTWARE. IN NO EVENT SHALL WE BE LIABLE FOR ANY DAMAGES INCLUDING,
+    BUT NOT LIMITED TO, DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR
+    CONSEQUENTIAL DAMAGES OR OTHER LOSSES ARISING OUT OF THE USE OF OR
+    INABILITY TO USE THIS PRODUCTS.
 */
 
-
+/**
+ * Setup Some constants
+ */
+define( 'WPMETRIZE_VERSION', '1.0' );
 define( 'WPMETRIZE_CURRENT_FILE', __FILE__ );
-define( 'WPMETRIZE_CURRENT_DIR', dirname(WPMETRIZE_CURRENT_FILE));
+define( 'WPMETRIZE_CURRENT_DIR', dirname( WPMETRIZE_CURRENT_FILE ));
+define( 'WPMETRIZE_CURRENT_URI', get_template_directory_uri().'/inc/plugins/WPMetrizeIcons');
+
+// Import Icon List singleton
+include 'singleton-iconlist.php';
 
 class WPMetrize {
-
+    /**
+     * Setup the plugin
+     */
     public function __construct() {
-        add_action( 'init', array( &$this, 'init' ) );
-    }
-
-    public function init() {
-        add_action( 'wp_enqueue_scripts', array( &$this, 'register_plugin_styles' ) );
         add_shortcode( 'icon', array( &$this, 'setup_shortcode' ) );
         add_filter( 'widget_text', 'do_shortcode' );
+        add_action( 'init', array( &$this, 'add_mce_buttons') );
+        add_action( 'admin_footer', array( &$this, 'admin_popup' ) );
+        add_action( 'wp_enqueue_scripts', array( &$this, 'plugin_scripts' ) );
+        add_action( 'admin_enqueue_scripts', array( &$this, 'plugin_scripts' ) );
     }
 
-    public function register_plugin_styles() {
+    /**
+     * CSS and JS
+     */
+    public function plugin_scripts() {
         global $wp_styles;
-        wp_enqueue_style( 'metrize_styles', WPMETRIZE_CURRENT_DIR . 'metrize.css', WPMETRIZE_CURRENT_FILE  );
-        wp_enqueue_style( 'metrize_lte_ie7', WPMETRIZE_CURRENT_DIR . 'lte-ie7.js', WPMETRIZE_CURRENT_FILE , array(), '1.0', 'all'  );
+        wp_enqueue_style( 'metrize_styles', WPMETRIZE_CURRENT_URI . '/css/metrize.css', WPMETRIZE_CURRENT_FILE, WPMETRIZE_VERSION  );
+        wp_enqueue_style( 'metrize_lte_ie7', WPMETRIZE_CURRENT_URI . '/js/lte-ie7.js', WPMETRIZE_CURRENT_FILE , array(), WPMETRIZE_VERSION, 'all'  );
         $wp_styles->add_data( 'metrize_lte_ie7', 'conditional', 'lte IE 7' );
+
+        if(is_admin())
+            wp_enqueue_style( 'metrize_admin_styles', WPMETRIZE_CURRENT_URI . '/css/metrize-admin.css', WPMETRIZE_CURRENT_FILE, WPMETRIZE_VERSION  );
     }
 
+    /**
+     * Set up the shortcode for the icons
+     */
     public function setup_shortcode( $params ) {
         extract( shortcode_atts( array(
-                    'name'  => 'icon-user'
+                    'name'  => 'leaf'
                 ), $params ) );
-        $icon = '<i class="'.$params['name'].'">&nbsp;</i>';
+        $icon = '<i class="icon-'.$params['name'].'">&nbsp;</i>';
 
         return $icon;
     }
 
+    /**
+     * Add Tiny MCE Buttons to the Wordpress Editor
+     */
+    public function add_mce_buttons() {
+        add_filter( "mce_external_plugins", array( &$this, "add_mce_plugin") );
+        add_filter( 'mce_buttons', array( &$this, 'register_mce_buttons') );
+    }
+
+    /**
+     * Adds the script necessary for the Tiny MCE Plugin
+     */
+    public function add_mce_plugin( $plugin_array ) {
+        $plugin_array['wpmetrize'] = WPMETRIZE_CURRENT_URI . '/js/scripts.js';
+        return $plugin_array;
+    }
+
+    /**
+     * Register the Button with Tiny MCE
+     */
+    public function register_mce_buttons( $buttons ) {
+        array_push($buttons, 'metrize_icons');
+        return $buttons;
+    }
+
+    /**
+     * Build the admin popup.
+     */
+    public function admin_popup(){
+        $icons = WPMetrizeIconList::get_list();
+        add_thickbox();
+        ?>
+        <input style="display:none" id="iconpopupbtn" alt="#TB_inline?width=full&height=full&inlineId=icons_popup" title="<?php  echo __('Add Icons', 'codigo');?>" class="thickbox" type="button" value="open sesame"/>
+        <div id="icons_popup" style="display:none;">
+            <h2><?php  echo __('Metrize Icons', 'wpmetrize');?></h2>
+
+            <p class="description"><?php echo __('Select an icon to be inserted in the content body.','wpmetrize') ?></p>
+
+            <div class="metrize-icons-container">
+                <?php foreach ($icons as $icon):?>
+                <span class="box1">
+                    <a aria-hidden="true" class="icon-<?php echo $icon; ?>" rel="<?php echo $icon; ?>"></a>
+                </span>
+                <?php endforeach;?>
+            </div>
+        </div>
+        <?php
+    }
 }
 
 // Ok Go!
