@@ -42,7 +42,7 @@ License:
 define( 'WPMETRIZE_VERSION', '1.0' );
 define( 'WPMETRIZE_CURRENT_FILE', __FILE__ );
 define( 'WPMETRIZE_CURRENT_DIR', dirname( WPMETRIZE_CURRENT_FILE ));
-define( 'WPMETRIZE_CURRENT_URI', get_template_directory_uri().'/inc/plugins/WPMetrizeIcons');
+define( 'WPMETRIZE_CURRENT_URI', plugins_url('', WPMETRIZE_CURRENT_FILE) );
 
 // Import Icon List singleton
 include 'singleton-iconlist.php';
