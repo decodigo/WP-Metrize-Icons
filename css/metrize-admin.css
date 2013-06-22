@@ -15,6 +15,10 @@
 
 #TB_window .metrize-icons-container a:hover{
 	color: #666;
+	-webkit-transform: scale(1.5, 1.5);
+	   -moz-transform: scale(1.5, 1.5);
+	     -o-transform: scale(1.5, 1.5);
+	        transform: scale(1.5, 1.5);
 	}
 #TB_window #TB_ajaxContent{
 	width: auto !important;
