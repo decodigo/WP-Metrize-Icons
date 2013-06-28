@@ -22,10 +22,12 @@ Metrize Icons were create by Alessio Atzeni. You can view Metrize Icons here: [h
 
 == Installation ==
 
-1. Upload `plugin-name.php` to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
+1. Copy the ```WP-Metrize-Icons``` directory into your wp-content/plugins directory
+2. Navigate to the Plugins dashboard page
+3. Locate the menu item that reads `WP Metrize Icons`
+4. Click on Activate
 
-== Frequently asked questions ==
+== Frequently asked questions ==-
 
 = A question that someone might have =
 
@@ -33,7 +35,7 @@ An answer to that question.
 
 == Screenshots ==
 
-1. Select Icon Admin Screen `/assets/screenshot-1.png`
+1. Select Icon Admin Screen
 2.
 
 == Changelog ==
