@@ -29,14 +29,10 @@ Metrize Icons were create by Alessio Atzeni. You can view Metrize Icons here: [h
 
 == Frequently asked questions ==-
 
-= A question that someone might have =
-
-An answer to that question.
 
 == Screenshots ==
 
 1. Select Icon Admin Screen
-2.
 
 == Changelog ==
 
