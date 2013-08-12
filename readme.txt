@@ -17,6 +17,7 @@ A super easy way to add the awesome Metrize Icon Set. No need to type in shortco
 = Features =
 * Easy to use Icon selection popup.
 * Shortcodes for every Metrize icon.
+* Choose from multiple sizes.
 
 Metrize Icons were create by Alessio Atzeni. You can view Metrize Icons here: [http://www.alessioatzeni.com/metrize-icons/](http://www.alessioatzeni.com/metrize-icons/)
 
@@ -35,10 +36,19 @@ Metrize Icons were create by Alessio Atzeni. You can view Metrize Icons here: [h
 1. Select Icon Admin Screen
 
 == Changelog ==
+= 1.0.1 =
+* Adding size option to admin popup.
+* Fix compatibility with other icon libraries (ie. Font Awesome)
+* Slight UI enhancements in the popup
 
 = 1.0 =
 * Initial Release.
 
 == Upgrade Notice ==
+= 1.0.1 =
+Adding size option to admin popup.
+Fix compatibility with other icon libraries (ie. Font Awesome)
+Slight UI enhancements in the popup
+
 = 1.0 =
 Initial Release.
