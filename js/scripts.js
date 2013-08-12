@@ -29,7 +29,7 @@
 
     $('.metrize-icons-container a').live('click', function(e){
         var ed = currentEditor;
-        ed.selection.setContent( '[icon name="'+this.rel+'"]' );
+        ed.selection.setContent( '[icon name="'+this.rel+'" size="'+document.getElementById('metrize_size').value+'"]' );
         tb_remove();
         e.preventDefault();
     });

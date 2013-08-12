@@ -77,9 +77,10 @@ class WPMetrize {
      */
     public function setup_shortcode( $params ) {
         extract( shortcode_atts( array(
-                    'name'  => 'leaf'
+                    'name'  => 'leaf',
+                    'size'  => 'medium'
                 ), $params ) );
-        $icon = '<i class="metrize-'.$params['name'].'">&nbsp;</i>';
+        $icon = '<i class="metrize-'. sanitize_key( $params['name'] ) .' '. sanitize_key( $params['size'] ) .'">&nbsp;</i>';
 
         return $icon;
     }
@@ -120,6 +121,17 @@ class WPMetrize {
             <h2><?php  echo __('Metrize Icons', 'wpmetrize');?></h2>
 
             <p class="description"><?php echo __('Select an icon to be inserted in the content body.','wpmetrize') ?></p>
+
+            <p class="size-cont">
+                <label for="metrize_size"><?php _e('Size','wpmetrize') ?>:</label>
+
+                <select id="metrize_size">
+                    <option type="radio" name="metrize_size" value="small"><?php _e('Small','wpmetrize'); ?></option>
+                    <option type="radio" name="metrize_size" value="medium" selected><?php _e('Medium','wpmetrize'); ?></option>
+                    <option type="radio" name="metrize_size" value="large"><?php _e('Large','wpmetrize'); ?></option>
+                    <option type="radio" name="metrize_size" value="xlarge"><?php _e('Extra Large','wpmetrize'); ?></option>
+                </select>
+            </p>
 
             <div class="metrize-icons-container">
                 <?php foreach ($icons as $icon):?>
