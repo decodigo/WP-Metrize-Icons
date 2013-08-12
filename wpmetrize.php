@@ -79,7 +79,7 @@ class WPMetrize {
         extract( shortcode_atts( array(
                     'name'  => 'leaf'
                 ), $params ) );
-        $icon = '<i class="icon-'.$params['name'].'">&nbsp;</i>';
+        $icon = '<i class="metrize-'.$params['name'].'">&nbsp;</i>';
 
         return $icon;
     }
@@ -124,7 +124,7 @@ class WPMetrize {
             <div class="metrize-icons-container">
                 <?php foreach ($icons as $icon):?>
                 <span class="box1">
-                    <a aria-hidden="true" class="icon-<?php echo $icon; ?>" rel="<?php echo $icon; ?>"></a>
+                    <a aria-hidden="true" class="metrize-<?php echo $icon; ?>" rel="<?php echo $icon; ?>"></a>
                 </span>
                 <?php endforeach;?>
             </div>
