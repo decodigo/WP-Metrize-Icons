@@ -3,7 +3,7 @@
 Plugin Name: WP Metrize Icons
 Plugin URI: http://www.decodigothemes.com
 Description: Use the Metrize Icon @font-face icon set in Wordpress for retina ready icons.
-Version: 1.0
+Version: 1.0.1
 Author: DeCodigo
 Author URI: http://www.decodigothemes.com
 Author Email: nelson@decodigothemes.com
@@ -39,10 +39,9 @@ License:
 /**
  * Setup Some constants
  */
-define( 'WPMETRIZE_VERSION', '1.0' );
-define( 'WPMETRIZE_CURRENT_FILE', __FILE__ );
-define( 'WPMETRIZE_CURRENT_DIR', dirname( WPMETRIZE_CURRENT_FILE ));
-define( 'WPMETRIZE_CURRENT_URI', plugins_url('', WPMETRIZE_CURRENT_FILE) );
+define( 'WPMETRIZE_VERSION', '1.0.1' );
+define( 'WPMETRIZE_CURRENT_DIR', __FILE__ );
+define( 'WPMETRIZE_CURRENT_URI', plugins_url('', WPMETRIZE_CURRENT_DIR) );
 
 // Import Icon List singleton
 include 'singleton-iconlist.php';
@@ -65,12 +64,12 @@ class WPMetrize {
      */
     public function plugin_scripts() {
         global $wp_styles;
-        wp_enqueue_style( 'metrize_styles', WPMETRIZE_CURRENT_URI . '/css/metrize.css', WPMETRIZE_CURRENT_FILE, WPMETRIZE_VERSION  );
-        wp_enqueue_style( 'metrize_lte_ie7', WPMETRIZE_CURRENT_URI . '/js/lte-ie7.js', WPMETRIZE_CURRENT_FILE , array(), WPMETRIZE_VERSION, 'all'  );
+        wp_enqueue_style( 'metrize_styles', WPMETRIZE_CURRENT_URI . '/css/metrize.css' , false, WPMETRIZE_VERSION  );
+        wp_enqueue_style( 'metrize_lte_ie7', WPMETRIZE_CURRENT_URI . '/js/lte-ie7.js', false , array(), WPMETRIZE_VERSION, 'all'  );
         $wp_styles->add_data( 'metrize_lte_ie7', 'conditional', 'lte IE 7' );
 
         if(is_admin())
-            wp_enqueue_style( 'metrize_admin_styles', WPMETRIZE_CURRENT_URI . '/css/metrize-admin.css', WPMETRIZE_CURRENT_FILE, WPMETRIZE_VERSION  );
+            wp_enqueue_style( 'metrize_admin_styles', WPMETRIZE_CURRENT_URI . '/css/metrize-admin.css', false, WPMETRIZE_VERSION  );
     }
 
     /**
